@@ -8,8 +8,10 @@ namespace blog_manageng
     {
         static void Main(string[] args)
         {
-                
+            BlogStatus blogStatus = BlogStatus.Approved;
 
+            Console.WriteLine(blogStatus.GetNameInAzerbaijani());
+            //Legv edildi
         }
 
     }
@@ -38,6 +40,43 @@ namespace blog_manageng
         Rejected
     }
 
+
+    static class BlogStatusExtension
+    {
+        public static string GetNameInAzerbaijani(this BlogStatus blogStatus, bool isAdmin = true)
+        {
+            if (isAdmin)
+            {
+                switch (blogStatus)
+                {
+                    case BlogStatus.Created:
+                        return "Yaradildi";
+                    case BlogStatus.Approved:
+                        return "Tesdiqlendi";
+                    case BlogStatus.Rejected:
+                        return "Redd edildi";
+                    default:
+                        throw new Exception($"Status : {blogStatus} is not localized to azerebaijani");
+                }
+            }
+            else
+            {
+                switch (blogStatus)
+                {
+                    case BlogStatus.Created:
+                        return "Yoxlanisda";
+                    case BlogStatus.Approved:
+                        return "Tesdiqlendi";
+                    case BlogStatus.Rejected:
+                        return "Redd olundu";
+                    default:
+                        throw new Exception($"Status : {blogStatus} is not localized to azerebaijani");
+                }
+            }
+
+            
+        }
+    }
 
 
 }
